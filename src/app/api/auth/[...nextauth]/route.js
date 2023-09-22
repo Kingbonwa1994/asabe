@@ -1,4 +1,4 @@
-import { connectMongoDB } from "@/db/dbConnect";
+import  connectMongoDB  from "@/db/dbConnect";
 import bcrypt from 'bcryptjs';
 
 import ServiceProvider from "@/models/serviceProvider";
