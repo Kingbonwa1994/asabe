@@ -6,15 +6,15 @@ import { useState, useRef, useEffect } from "react";
 
 export const navLinks = [
   {
-    id: "login",
+    id: "/profile",
     title: "Service Provider",
   },
   {
-    id: "admin",
+    id: "/admin",
     title: "Admin",
   },
   {
-    id: "register",
+    id: "/register",
     title: "Signup",
   },
 ];
