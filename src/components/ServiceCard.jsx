@@ -1,7 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import useServicesStore from "@/store/servicesStore"; // Import your Zustand store
+import useServicesStore from '@/store/servicesStore';
+
+
 
 const maxDescriptionLength = 10;
 export default function ServiceCard({
@@ -98,7 +100,7 @@ export default function ServiceCard({
   return (
     <div onClick={handleCardClick}>
       <div
-        className="group service-card p-4 border-[green-900] rounded-md relative shadow-2xl bg-gradient-to-br from-green-200 via-green-700 to-green-200 transform transition-transform duration-300 ease-out hover:scale-110"
+        className="group service-card p-4 border-[green-900] rounded-md relative shadow-2xl bg-gradient-to-br from-green-100 via-green-200 to-green-200 transform transition-transform duration-300 ease-out hover:scale-110"
         onClick={handleServiceCardClick}
       >
         <motion.img
