@@ -8,7 +8,7 @@ export default function ServicesGrid() {
     {
       id: 1,
       title: "Painting",
-      image: "public/icons/painter.png",
+      image: "/icons/painter.png",
       description:
         "Our painting service offers professional interior and exterior painting for homes and businesses.",
     },
@@ -126,7 +126,7 @@ export default function ServicesGrid() {
     },
     {
       id: 18,
-      title: "Pressure Washing",
+      title: "Pressure Wash...",
       image: "/icons/pressure_washing.png",
       description:
         "Restore the appearance of your surfaces with our high-pressure washing services for driveways, decks, and more.",
@@ -157,10 +157,9 @@ export default function ServicesGrid() {
         <ServiceCard
           key={service.id}
           id={service.id}
-          imageUrl={service.imageUrl}
+          imageUrl={service.image}
           title={service.title}
           description={service.description}
-         
         />
       ))}
     </div>

@@ -1,7 +1,11 @@
 import { connectMongoDB } from "@/db/dbConnect";
+import bcrypt from 'bcryptjs';
+
 import ServiceProvider from "@/models/serviceProvider";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
+
+// Import statements
 
 const authOptions = {
   providers: [
@@ -12,17 +16,16 @@ const authOptions = {
   ],
   callbacks: {
     async signIn({ serviceProvider, account }) {
-      if (account.provider === "google") {
+      if (account.provider === 'google') {
         const { email, phone } = serviceProvider;
         try {
-          await connectMongoDB();
           const serviceProviderExists = await ServiceProvider.findOne({ email });
 
           if (!serviceProviderExists) {
-            const res = await fetch("http://localhost:3000/api/serviceProvider", {
-              method: "POST",
+            const res = await fetch('http://localhost:3000/api/serviceProvider', {
+              method: 'POST',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               body: JSON.stringify({
                 phone,
@@ -31,22 +34,32 @@ const authOptions = {
             });
 
             if (res.ok) {
-              return serviceProvider;
+              const data = await res.json();
+              if (data.success) {
+                return serviceProvider;
+              } else {
+                console.error('Failed to create serviceProvider:', data.msg);
+              }
+            } else {
+              console.error('Failed to create serviceProvider:', res.status);
             }
           }
         } catch (error) {
-          console.log(error);
+          console.error('Error during sign-in:', error);
         }
       }
 
       return serviceProvider;
     },
     async signUp({ serviceProvider }) {
+      const hashedPassword = await bcrypt.hash(serviceProvider.password, 10);
       try {
+        // Hash the password before saving it in the database
+        // const hashedPassword = await hashPassword(serviceProvider.password);
         await ServiceProvider.create({
           email: serviceProvider.email,
           phone: serviceProvider.phone,
-          password: serviceProvider.password,
+          password: hashedPassword,
           services: serviceProvider.services,
           // Add any other serviceProvider information you want to save in MongoDB
         });
@@ -68,4 +81,4 @@ const authOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+connectMongoDB();

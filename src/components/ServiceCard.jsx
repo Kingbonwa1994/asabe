@@ -24,7 +24,7 @@ export default function ServiceCard({
   const handleCardClick = () => {
     // Set the selected service when a card is clicked
     setSelectedService({ id, title, description });
-    openOverlay(); // Call the openOverlay function from props
+ // Call the openOverlay function from props
   };
   const handleServiceCardClick = () => {
     openModal(); // Open the modal when a service card is clicked
