@@ -10,7 +10,7 @@ const ProviderAccount = () => {
           <div className="flex justify-between items-center">
             <div>
               <span>Email: service@example.com</span>
-              <span className="ml-4">Phone: +1234567890</span>
+              <span className="ml-4">Phone: +2786 685 4785</span>
             </div>
             {/* Add your navigation links if needed */}
           </div>
