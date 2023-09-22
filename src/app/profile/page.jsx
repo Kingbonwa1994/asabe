@@ -34,9 +34,9 @@ const ProviderAccount = () => {
         <Link
           href="/subscription"
           className="bg-blue-500 text-white text-lg font-semibold rounded-lg py-2 px-4 block text-center hover:bg-blue-600"
-        
+        >
           Subscribe
-        />
+          </Link>
       </div>
     </div>
   );
