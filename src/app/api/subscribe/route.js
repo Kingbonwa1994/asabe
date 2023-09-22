@@ -1,16 +1,16 @@
 // pages/api/subscribe.js (Server-Side)
-import connectToDatabase from '../../utils/mongodb'; // Your MongoDB connection code
-import { validateEmail } from '../../utils/validation'; // Your validation functions
+import connectToMongo from '@/db/dbConnect'; // Your MongoDB connection code
 
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
+
+export default async function POST(req, res) {
+  
     const { email } = req.body;
 
-    if (!validateEmail(email)) {
+    if (!email) {
       return res.status(400).json({ error: 'Invalid email format' });
     }
 
-    const { db } = await connectToDatabase();
+    const { db } = await connectToMongo();
 
     try {
       await db.collection('subscriptions').insertOne({ email });
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     } catch (error) {
       return res.status(500).json({ error: 'Database error' });
     }
-  }
+ 
 
   return res.status(405).end();
 }
