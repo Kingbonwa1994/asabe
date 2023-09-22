@@ -23,9 +23,9 @@ const ProviderAccount = () => {
         <div className="bg-white rounded-lg shadow-md p-4 mb-4">
           <h2 className="text-2xl font-semibold mb-4">Available Jobs</h2>
           <ul>
-            <li>Job 1</li>
-            <li>Job 2</li>
-            <li>Job 3</li>
+            <li>Roofing at DernFern</li>
+            <li>Roof leaks at Cosmo</li>
+            <li>Roof Reinstall</li>
             {/* Add more jobs here */}
           </ul>
         </div>
