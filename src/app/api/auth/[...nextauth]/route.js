@@ -1,5 +1,5 @@
-import { connectMongoDB } from "@/lib/mongodb";
-import User from "@/models/user";
+import { connectMongoDB } from "@/db/dbConnect";
+import ServiceProvider from "@/models/serviceProvider";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -11,27 +11,27 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn({ serviceProvider, account }) {
       if (account.provider === "google") {
-        const { name, email } = user;
+        const { email, phone } = serviceProvider;
         try {
           await connectMongoDB();
-          const userExists = await User.findOne({ email });
+          const serviceProviderExists = await ServiceProvider.findOne({ email });
 
-          if (!userExists) {
-            const res = await fetch("http://localhost:3000/api/user", {
+          if (!serviceProviderExists) {
+            const res = await fetch("http://localhost:3000/api/serviceProvider", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                name,
+                phone,
                 email,
               }),
             });
 
             if (res.ok) {
-              return user;
+              return serviceProvider;
             }
           }
         } catch (error) {
@@ -39,8 +39,30 @@ const authOptions = {
         }
       }
 
-      return user;
+      return serviceProvider;
     },
+    async signUp({ serviceProvider }) {
+      try {
+        await ServiceProvider.create({
+          email: serviceProvider.email,
+          phone: serviceProvider.phone,
+          password: serviceProvider.password,
+          services: serviceProvider.services,
+          // Add any other serviceProvider information you want to save in MongoDB
+        });
+        return true;
+      } catch (error) {
+        console.error('Error creating serviceProvider:', error);
+        return false;
+      }
+    },
+  },
+  session: {
+    jwt: true,
+  },
+  debug: process.env.NODE_ENV === 'development',
+  pages: {
+    signIn: '/auth/signin',
   },
 };
 
