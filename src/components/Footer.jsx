@@ -8,7 +8,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-4 sticky bottom-0">
+    <footer className="bg-gray-900 mt-auto text-white py-4 sticky bottom-0">
       <div className="flex flex-col items-center justify-center">
         <div className="mb-4">
           <p>1cliQ</p>

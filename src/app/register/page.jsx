@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter from "next/router" instead of "next/navigation"
+import Link from "next/link";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -8,7 +9,7 @@ export default function RegisterForm() {
     email: "",
     phone: "",
     password: "",
-    services: ["", "", ""],
+    services: [""],
   });
   const [message, setMessage] = useState(""); // Combined state for error and success messages
 
@@ -17,6 +18,7 @@ export default function RegisterForm() {
     updatedServices[index] = value;
     setFormData({ ...formData, services: updatedServices });
   };
+  
 
   const handleAddService = () => {
     if (formData.services.length < 3) {
@@ -33,7 +35,7 @@ export default function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Check if services array has at least one non-empty service
     if (!formData.services.some((service) => service.trim() !== "")) {
       setMessage("Please add at least one service.");
@@ -53,7 +55,7 @@ export default function RegisterForm() {
         const data = await response.json();
         if (data.success) {
           // Registration was successful, you can handle this as needed
-          
+
           setMessage("Registration successful!");
           router.push("/profile");
         } else {
@@ -72,11 +74,11 @@ export default function RegisterForm() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className="py-4 mt-4 border-t items-center bg-black-100 flex flex-col gap-5 sm:w-3/4 mx-auto">
-        <h1 className="text-bold">Register As A ServiceProvider</h1>
+    <div className="bg-indigo-100 flex-1">
+      <form onSubmit={handleSubmit} className="py-4 mt-4 border-t items-center bg-black-100 flex flex-col gap-5 flex-1 sm:w-3/4 mx-auto">
+        <h1 className="text-4xl text-sky-blue font-bold italic text-center animate-bounce">Register As A ServiceProvider</h1>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email"></label>
           <input
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             value={formData.email}
@@ -84,38 +86,40 @@ export default function RegisterForm() {
             name="email"
             type="email"
             id="email"
-            placeholder="Email"
+            placeholder="email@one.com"
             required
+            className="border border-blue-400 hover:border-blue-600 p-2 rounded-md text-lg focus:outline-none focus:ring focus:border-blue-400"
           />
         </div>
-        {/* Add similar input fields for phone and password */}
-<div>
-  <label htmlFor="phone">Phone Number</label>
-  <input
-    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-    value={formData.phone}
-    type="tel"
-    id="phone"
-    name="phone"
-    placeholder="Phone Number"
-    required
-  />
-</div>
-<div>
-  <label htmlFor="password">Password</label>
-  <input
-    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-    value={formData.password}
-    type="password"
-    name="password"
-    id="password"
-    placeholder="Password"
-    required
-  />
-</div>
-
+        
         <div>
-          <label htmlFor="services">Services</label>
+          <label htmlFor="phone"></label>
+          <input
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+            value={formData.phone}
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Phone Number"
+            className="border border-blue-400 hover:border-blue-600 p-2 rounded-md text-lg focus:outline-none focus:ring focus:border-blue-400"
+          />
+        </div>
+        <div>
+          <label htmlFor="password"></label>
+          <input
+            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            value={formData.password}
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            required
+            className="border border-blue-400 hover:border-blue-600 p-2 rounded-md text-lg focus:outline-none focus:ring focus:border-blue-400"
+          />
+        </div>
+
+        <div className="flex items-center">
+          <label  htmlFor="services"></label>
           {formData.services.map((service, index) => (
             <div key={index} className="relative group">
               <input
@@ -125,22 +129,24 @@ export default function RegisterForm() {
                 type="text"
                 placeholder="Service"
                 required
-                className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-400"
+                className="border p-1 rounded-md focus:outline-none focus:ring focus:border-blue-400"
               />
-              <button
-                type="button"
-                onClick={() => handleRemoveService(index)}
-                className="hidden group-hover:inline-block bg-red-600 text-white p-2 rounded-md"
-              >
-                Remove
-              </button>
+              {index > 0 && (
+                <button
+                  type="button"
+                  onClick={() => handleRemoveService(index)}
+                  className="inline-block bg-red-600 text-white p-2 rounded-md"
+                >
+                  Remove
+                </button>
+              )}
             </div>
           ))}
           {formData.services.length < 3 && (
             <button
               type="button"
               onClick={handleAddService}
-              className="bg-green-700 text-white p-2 rounded-md"
+              className="bg-green-700 text-sm text-white p-1 rounded-md"
             >
               Add Service
             </button>
@@ -150,12 +156,15 @@ export default function RegisterForm() {
         <button className="bg-green-700 p-3 text-white font-bold" type="submit">
           Sign Up
         </button>
+        <div>
+          Already have an account? <Link href="/login" className="	text-decoration-line: underline">Sign In</Link>
+        </div>
       </form>
       {message && (
         <div className={`px-5 py-2 text-center ${message.startsWith("Registration") ? "text-green-800" : "text-red-600"}`}>
           {message}
         </div>
       )}
-    </>
+    </div>
   );
 }

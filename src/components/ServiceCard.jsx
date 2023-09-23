@@ -65,7 +65,7 @@ export default function ServiceCard({
           },
           body: JSON.stringify(formData),
         });
-
+       
         if (response.status === 201) {
           console.log("Job created successfully");
         } else {
@@ -120,7 +120,8 @@ export default function ServiceCard({
         <div>
           <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-60 backdrop-blur-md z-50 flex justify-center items-center">
             <div className="bg-white p-4 rounded-md">
-              <h2 className="text-2xl font-semibold mb-4">
+              <h1 text-4xl className="text-4xl text-sky-500 font-bold italic text-center animate-pulse">1cliQ</h1>
+              <h2 className="text-1xl mt-8 text-center font-semibold mb-4">
                 Request Quote for {selectedService ? selectedService.title : ""}
               </h2>
 
@@ -183,13 +184,14 @@ export default function ServiceCard({
                   Send WhatsApp
                 </button>
               </form>
-
+              <div className="flex flex-col items-center">
               <button
                 onClick={closeModal}
-                className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 mt-4"
+                className="bg-red-600 text-white py-1 px-1 rounded-full hover:bg-red-700 mt-4"
               >
                 Close
               </button>
+              </div>
             </div>
           </div>
         </div>

@@ -11,9 +11,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}<Footer/></body>
-      
-    </html>
+    <html lang="en" style={{ height: '100%' }}>
+    <body className={inter.className} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      {children}
+      <Footer style={{ marginTop: 'auto' }} />
+    </body>
+  </html>
   )
 }
