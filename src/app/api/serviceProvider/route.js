@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'; // Import NextResponse and redirect 
 import ServiceProvider from '@/models/serviceProvider';
 import connectMongoDB from '@/db/dbConnect';
 import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export async function POST(req) {
   const { email, phone, password, services } = await req.json();
@@ -15,7 +16,8 @@ export async function POST(req) {
         success: true,
       });
     }
-    redirect('/profile', push) // Missing closing brace for the if block
+    const router = useRouter()
+    router.push('/profile') 
   } catch (error) {
     console.log(error);
     return NextResponse.json({ msg: error });
