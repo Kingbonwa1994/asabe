@@ -27,13 +27,24 @@ const serviceProviderSchema = new mongoose.Schema({
       },
       message: "You can only add up to three services.",
     },
+  isVerfied: {
+    type: Boolean,
+    default: false,
   },
-
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  forgotPasswordToken: String,
+  forgotPasswordTokenExpiry: Date,
+  verifyToken: String,
+  verifyTokenExpiry: Date,
+ },
   date: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  type: Date,
+  default: Date.now,
+},
+})
 
 const ServiceProvider = mongoose.models.ServiceProvider || mongoose.model("ServiceProvider", serviceProviderSchema);
 

@@ -1,25 +1,62 @@
+"use client";
+import axios from "axios";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-const ProviderAccount = () => {
+
+export default function ProfilePage() {
+  const router = useRouter()
+  const [data, setData] = useState("nothing")
+  const logout = async () => {
+    try {
+      await axios.get('/api/users/logout')
+      toast.success('Logout successful')
+      router.push('/login')
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.message)
+    }
+  }
+
+  const getUserDetails = async () => {
+    const res = await axios.get('/api/users/me')
+    console.log(res.data);
+    setData(res.data.data._id)
+  }
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-blue-500 p-4 text-white">
-        <div className="container mx-auto">
-          <div className="flex justify-between items-center">
-            <div>
-              <span>Email: service@example.com</span>
-              <span className="ml-4">Phone: +2786 685 4785</span>
-            </div>
-            {/* Add your navigation links if needed */}
-          </div>
-        </div>
-      </nav>
+    <>
+      <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <h1>Profile</h1>
+        <hr />
+        <p>Profile page</p>
+        <h2 className="p-1 rounded bg-green-500">{data === 'nothing' ? "Nothing" : <Link href={`/profile/${data}`}>{data}
+        </Link>}</h2>
+        <hr />
+        <button
+          onClick={logout}
+          className="bg-blue-500 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >Logout</button>
 
-      {/* Content */}
+        <button
+          onClick={getUserDetails}
+          className="bg-green-800 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >GetUser Details</button>
+
+
+      </div>
+      <div>
+        <span>Email: service@example.com</span>
+        <span className="ml-4">Phone: +2786 685 4785</span>
+      </div>
+
+
+
+
       <div className="container mx-auto p-4">
-        {/* Job List */}
+
         <div className="bg-white rounded-lg shadow-md p-4 mb-4">
           <h2 className="text-2xl font-semibold mb-4">Available Jobs</h2>
           <ul>
@@ -29,17 +66,15 @@ const ProviderAccount = () => {
             {/* Add more jobs here */}
           </ul>
         </div>
-
-        {/* Subscribe Button */}
         <Link
           href="/subscription"
           className="bg-blue-500 text-white text-lg font-semibold rounded-lg py-2 px-4 block text-center hover:bg-blue-600"
         >
           Subscribe
-          </Link>
+        </Link>
       </div>
-    </div>
+    </>
   );
 };
 
-export default ProviderAccount;
+
