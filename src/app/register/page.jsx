@@ -118,7 +118,7 @@ export default function RegisterForm() {
           />
         </div>
 
-        <div className="flex items-center">
+        <div className="flex flex-wrap items-center">
           <label  htmlFor="services"></label>
           {formData.services.map((service, index) => (
             <div key={index} className="relative group">

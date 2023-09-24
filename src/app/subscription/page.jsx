@@ -35,15 +35,14 @@ function PayPalButton() {
   }, []);
 
   return (
-    <div className="flex flex-col flex-1 justify-center items-center min-h-screen bg-gray-200">
-      <h1 className='mb-40'>Get Jobs Now</h1>
-      <div id="paypal-button-container-P-9GB54765BN876160UMUGNRUI">
-        
-        <div
-          className="flex flex-1"
-          id="paypal-button-container-P-9GB54765BN876160UMUGNRUI"
-        ></div>
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-200">
+      <div className="text-center">
+        <h1 className="text-4xl mb-4">Subscribe and Unlock Unlimited Job Opportunities</h1>
+        <p className="text-lg text-gray-600">
+          Join our premium subscription to access a wide range of job listings and grow your career.
+        </p>
       </div>
+      <div id="paypal-button-container-P-9GB54765BN876160UMUGNRUI"></div>
     </div>
   );
 }
