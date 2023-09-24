@@ -13,6 +13,10 @@ export const navLinks = [
     id: "/aboutus",
     title: "About Us",
   },
+  {
+    id: "/register",
+    title: "Join",
+  },
 ];
 
 const Navbar = () => {

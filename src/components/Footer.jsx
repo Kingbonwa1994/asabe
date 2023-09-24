@@ -15,9 +15,9 @@ const Footer = () => {
           <Link
             href="/admin"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-800 hover:text-gray-900"
           >
-            admin
+          admin
           </Link>
         </div>
         <div className="flex space-x-4">
