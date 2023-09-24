@@ -63,7 +63,7 @@ export default function ProfilePage() {
           <h2 className="text-2xl font-semibold mb-4">Subscription</h2>
           <p className="mb-4">
             Welcome to the trial version of our service! With this trial,
-            you'll receive one job offer. To enjoy unlimited job offers, subscribe now.
+            you will receive one job offer. To enjoy unlimited job offers, subscribe now.
           </p>
           <Link
             href="/subscription"

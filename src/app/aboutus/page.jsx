@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const AboutUsPage = () => {
@@ -35,7 +36,7 @@ const AboutUsPage = () => {
             {/* CEO */}
             <div className="w-full md:w-1/3 px-4 mb-8">
               <div className="bg-white rounded-lg p-6 shadow-lg">
-                <img src="/ceo.jpg" alt="CEO" className="w-20 h-20 rounded-full mx-auto mb-4" />
+                
                 <h3 className="text-lg font-semibold">Brett Pretorius</h3>
                 <p className="text-gray-600">CEO</p>
               </div>
@@ -44,7 +45,7 @@ const AboutUsPage = () => {
             {/* Marketing Manager */}
             <div className="w-full md:w-1/3 px-4 mb-8">
               <div className="bg-white rounded-lg p-6 shadow-lg">
-                <img src="/marketing-manager.jpg" alt="Marketing Manager" className="w-20 h-20 rounded-full mx-auto mb-4" />
+               
                 <h3 className="text-lg font-semibold">Jane Smith</h3>
                 <p className="text-gray-600">Marketing Manager</p>
               </div>
@@ -53,7 +54,7 @@ const AboutUsPage = () => {
             {/* Product Developer */}
             <div className="w-full md:w-1/3 px-4 mb-8">
               <div className="bg-white rounded-lg p-6 shadow-lg">
-                <img src="/product-developer.jpg" alt="Product Developer" className="w-20 h-20 rounded-full mx-auto mb-4" />
+               
                 <h3 className="text-lg font-semibold">Michael Johnson</h3>
                 <p className="text-gray-600">Product Developer</p>
               </div>

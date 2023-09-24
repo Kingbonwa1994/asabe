@@ -15,8 +15,6 @@ export async function POST(req) {
         success: true,
       });
     }
-    const router = useRouter()
-    router.push('/profile') 
   } catch (error) {
     console.log(error);
     return NextResponse.json({ msg: error });
