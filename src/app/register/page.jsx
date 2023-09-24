@@ -118,7 +118,7 @@ export default function RegisterForm() {
           />
         </div>
 
-        <div className="flex flex-wrap items-center">
+        <div className="flex flex-col flex-wrap items-center">
           <label  htmlFor="services"></label>
           {formData.services.map((service, index) => (
             <div key={index} className="relative group">
@@ -135,7 +135,7 @@ export default function RegisterForm() {
                 <button
                   type="button"
                   onClick={() => handleRemoveService(index)}
-                  className="inline-block bg-red-600 text-white p-2 rounded-md"
+                  className="inline-block bg-red-600 text-white p-1/4 rounded-md"
                 >
                   Remove
                 </button>
@@ -146,9 +146,9 @@ export default function RegisterForm() {
             <button
               type="button"
               onClick={handleAddService}
-              className="bg-green-700 text-sm text-white p-1 rounded-md"
+              className="bg-green-700 text-sm text-white p-1/2 rounded-md"
             >
-              Add Service
+              Add
             </button>
           )}
         </div>
