@@ -8,7 +8,7 @@ export default function AdminPage() {
   const router = useRouter();
   
   const onDeleteServiceProvider = (serviceProviderId) => {
-    // Simulate deletion by filtering out the service provider with the provided ID
+    // Simulate deletion by filtering out the sedummyServiceProvidersrvice provider with the provided ID
     const updatedServiceProviders = dummyServiceProviders.filter(
       (provider) => provider.id !== serviceProviderId
     );

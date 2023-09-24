@@ -12,6 +12,13 @@ const Footer = () => {
       <div className="flex flex-col items-center justify-center">
         <div className="mb-4">
           <p>1cliQ</p>
+          <Link
+            href="/admin"
+            rel="noopener noreferrer"
+            className="text-gray-500 hover:text-gray-700"
+          >
+            admin
+          </Link>
         </div>
         <div className="flex space-x-4">
           <Link

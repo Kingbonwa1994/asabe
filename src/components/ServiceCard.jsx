@@ -50,6 +50,12 @@ export default function ServiceCard({
       // Check if a service is selected
       if (selectedService) {
         const { location, phone, description } = formData; // Destructure formData
+        const phoneNumber = "+27637715945"; // Specify the desired phone number
+        const message = `I am interested in the service: ${selectedService.title}\nLocation: ${formData.location}\nPhone: ${formData.phone}\nDescription: ${formData.description}`;
+  
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=${encodeURIComponent(phoneNumber)}&text=${encodeURIComponent(message)}`;
+  
+        window.open(whatsappUrl, "_blank");
   
         // Create a new Job instance with the form data
         const newJob = new Job({
@@ -58,6 +64,8 @@ export default function ServiceCard({
           phoneNumber: phone,
           description,
         });
+        console.log("Job created successfully");
+       
   
         // Send the new job data to the endpoint for creating jobs
         const createJobEndpoint = "/api/jobs/create";
@@ -70,20 +78,13 @@ export default function ServiceCard({
         });
   
         if (response.status === 201) {
-          console.log("Job created successfully");
+        
         } else {
           throw new Error("Error creating job");
         }
   
         // Your logic to send the message goes here
-        const phoneNumber = "+27637715945"; // Specify the desired phone number
-        const message = `I am interested in the service: ${selectedService.title}\nLocation: ${formData.location}\nPhone: ${formData.phone}\nDescription: ${formData.description}`;
-  
-        const whatsappUrl = `https://api.whatsapp.com/send?phone=${encodeURIComponent(
-          phoneNumber
-        )}&text=${encodeURIComponent(message)}`;
-  
-        window.open(whatsappUrl, "_blank");
+        
   
         // Rest of your code for creating a job
       } else {
