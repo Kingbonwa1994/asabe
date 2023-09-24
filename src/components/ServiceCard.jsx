@@ -46,34 +46,45 @@ export default function ServiceCard({
   const handleSubmit = async () => {
     try {
       const selectedService = useServicesStore.getState().selectedService; // Get the selected service from the store
+  
       // Check if a service is selected
       if (selectedService) {
-        // Use the selected service to send the WhatsApp message
-        const phoneNumber = "+27637715945"; // Specify the desired phone number
-        const message = `I am interested in the service: ${selectedService.title}\nLocation: ${formData.location}\nPhone: ${formData.phone}\nDescription: ${formData.description}`;
-
-        const whatsappUrl = `https://api.whatsapp.com/send?phone=${encodeURIComponent(
-          phoneNumber
-        )}&text=${encodeURIComponent(message)}`;
-
-        window.open(whatsappUrl, "_blank");
+        const { location, phone, description } = formData; // Destructure formData
+  
+        // Create a new Job instance with the form data
+        const newJob = new Job({
+          title: selectedService.title,
+          location,
+          phoneNumber: phone,
+          description,
+        });
+  
+        // Send the new job data to the endpoint for creating jobs
         const createJobEndpoint = "/api/jobs/create";
         const response = await fetch(createJobEndpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(newJob), // Send the new job instance as JSON
         });
-       
+  
         if (response.status === 201) {
           console.log("Job created successfully");
         } else {
           throw new Error("Error creating job");
         }
+  
         // Your logic to send the message goes here
-        console.log("Sending WhatsApp message:", message);
-
+        const phoneNumber = "+27637715945"; // Specify the desired phone number
+        const message = `I am interested in the service: ${selectedService.title}\nLocation: ${formData.location}\nPhone: ${formData.phone}\nDescription: ${formData.description}`;
+  
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=${encodeURIComponent(
+          phoneNumber
+        )}&text=${encodeURIComponent(message)}`;
+  
+        window.open(whatsappUrl, "_blank");
+  
         // Rest of your code for creating a job
       } else {
         console.error("No service selected.");
@@ -83,6 +94,7 @@ export default function ServiceCard({
       console.error("Error:", error);
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;

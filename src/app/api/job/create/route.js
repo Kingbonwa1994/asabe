@@ -1,51 +1,28 @@
 
-import User from "@/models/userModel";
-import { NextResponse } from "next/server";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
 import connectMongoDB from "@/db/dbConnect";
+import Job from "@/models/job"; "@/models/job";
 
 connectMongoDB()
 
-export async function POST(request){
+export default async function POST (req, res)  {
+  
     try {
+      const { title, location, phoneNumber, description } = req.body;
 
-        const reqBody = await request.json()
-        const {email, password} = reqBody;
-        console.log(reqBody);
+   // Create a new job instance using the Job model
+      const newJob = new Job({
+        title,
+        location,
+        phoneNumber,
+        description,
+      });
 
-        const user = await User.findOne({email})
-        if(!user){
-            return NextResponse.json({error: "User does not exist"}, {status: 400})
-        }
-        console.log("user exists");
-        
-        const validPassword = await bcryptjs.compare(password, user.password)
-        if(!validPassword){
-            return NextResponse.json({error: "Invalid password"}, {status: 400})
-        }
-        console.log(user);
-        
-        //create token data
-        const tokenData = {
-            id: user._id,
-            username: user.username,
-            email: user.email
-        }
-        //create token
-        const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET, {expiresIn: "1d"})
+      // Save the job to the database
+      await newJob.save();
 
-        const response = NextResponse.json({
-            message: "Login successful",
-            success: true,
-        })
-        response.cookies.set("token", token, {
-            httpOnly: true, 
-            
-        })
-        return response;
-
+      res.status(201).json({ message: 'Job created successfully', job: newJob });
     } catch (error) {
-        return NextResponse.json({error: error.message}, {status: 500})
+      console.error('Error creating job:', error);
+      res.status(500).json({ error: 'Internal server error' });
     }
-}
+  } 
