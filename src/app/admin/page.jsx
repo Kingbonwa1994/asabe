@@ -52,7 +52,7 @@ export default function AdminPage() {
   };
 
   // Function to assign a job to a specific user
-  const assignJobToUser = () => {
+  const assignJoToServiceProvider = () => {
     // Implement backend logic to assign the job to the selected user
   };
 
@@ -152,7 +152,7 @@ export default function AdminPage() {
           </div>
 
           <button
-            onClick={assignJobToUser}
+            onClick={assignJoToServiceProvider}
             className="bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-lg py-2 px-4"
           >
             Assign Job

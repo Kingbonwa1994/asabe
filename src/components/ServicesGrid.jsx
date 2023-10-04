@@ -152,7 +152,7 @@ export default function ServicesGrid() {
 
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6  gap-4">
       {services.map((service) => (
         <ServiceCard
           key={service.id}
