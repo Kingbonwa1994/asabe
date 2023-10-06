@@ -11,7 +11,7 @@ export default function RegisterForm() {
     password: "",
     services: [""],
   });
-  const [message, setMessage] = useState(""); // Combined state for error and success messages
+  
 
   const handleServiceChange = (index, value) => {
     const updatedServices = [...formData.services];
@@ -160,11 +160,6 @@ export default function RegisterForm() {
           Already have an account? <Link href="/login" className="	text-decoration-line: underline">Sign In</Link>
         </div>
       </form>
-      {message && (
-        <div className={`px-5 py-2 text-center ${message.startsWith("Registration") ? "text-green-800" : "text-red-600"}`}>
-          {message}
-        </div>
-      )}
     </div>
   );
 }

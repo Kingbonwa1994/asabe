@@ -55,7 +55,7 @@ const Navbar = () => {
 
   return (
     <nav  className="w-full flex py-6 justify-between items-center navbar gradientAnimation 10s linear infinite linear-gradient(45deg, gray-600, gray-400)">
-      <Link href={'/'} className="text-3xl font-bold text-blue-600 hover:underline hover:text-blue-800 transition duration-300 ">1cliQ
+      <Link href={'/'} className="text-3xl font-bold text-blue-600 hover:text-blue-800 transition duration-300 ">1cliQ
       </Link>
       {/* Desktop Navigation */}
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
