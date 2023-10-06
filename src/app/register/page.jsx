@@ -38,8 +38,7 @@ export default function RegisterForm() {
 
     // Check if services array has at least one non-empty service
     if (!formData.services.some((service) => service.trim() !== "")) {
-      setMessage("Please add at least one service.");
-      return;
+        return;
     }
 
     try {
@@ -56,11 +55,11 @@ export default function RegisterForm() {
         if (data.success) {
           // Registration was successful, you can handle this as needed
 
-          setMessage("Registration successful!");
+        
           router.push("/profile");
         } else {
           // Registration failed, display error messages
-          setMessage(data.msg);
+    
         }
       } else {
         // Handle non-OK response, e.g., server error
@@ -68,7 +67,7 @@ export default function RegisterForm() {
       }
     } catch (error) {
       // Handle fetch error, e.g., network issue
-      setMessage("An error occurred while registering.");
+      
       console.error(error);
     }
   };
