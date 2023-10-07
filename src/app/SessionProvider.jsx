@@ -1,6 +1,6 @@
 import { SessionProvider } from "next-auth/react"
 
-export default function App({
+export default function Provider ({
   Component, pageProps: { session, ...pageProps }
 }) {
   return (

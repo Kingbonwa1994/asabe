@@ -4,7 +4,7 @@ import Job from "@/models/job"; "@/models/job";
 
 connectMongoDB()
 
-export default async function POST (req, res)  {
+export async function POST (req, res)  {
   
     try {
       const { title, location, phoneNumber, description } = req.body;
@@ -17,7 +17,6 @@ export default async function POST (req, res)  {
         description,
       });
 
-      // Save the job to the database
       await newJob.save();
 
       res.status(201).json({ message: 'Job created successfully', job: newJob });

@@ -47,12 +47,6 @@ const Navbar = () => {
   }, []);
 
 
-  const gradientAnimationStyle = {
-    background: "",
-    backgroundSize: "200% 200%",
-    animation: "", // Adjust the duration as needed
-  };
-
   return (
     <nav  className="w-full flex py-6 justify-between items-center navbar gradientAnimation 10s linear infinite linear-gradient(45deg, gray-600, gray-400)">
       <Link href={'/'} className="text-3xl font-bold text-blue-600 hover:text-blue-800 transition duration-300 ">1cliQ

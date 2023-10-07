@@ -24,6 +24,8 @@ export default function ServiceCard({
   const handleCardClick = () => {
     // Set the selected service when a card is clicked
     setSelectedService({ id, title, description });
+
+
  // Call the openOverlay function from props
   };
   const handleServiceCardClick = () => {
@@ -43,58 +45,53 @@ export default function ServiceCard({
     setIsModalOpen(false);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDafault()
     try {
-      const selectedService = useServicesStore.getState().selectedService; // Get the selected service from the store
-  
-      // Check if a service is selected
-      if (selectedService) {
-        const { location, phone, description } = formData; // Destructure formData
-        const phoneNumber = "+27637715945"; // Specify the desired phone number
-        const message = `I am interested in the service: ${selectedService.title}\nLocation: ${formData.location}\nPhone: ${formData.phone}\nDescription: ${formData.description}`;
-  
-        const whatsappUrl = `https://api.whatsapp.com/send?phone=${encodeURIComponent(phoneNumber)}&text=${encodeURIComponent(message)}`;
-  
-        window.open(whatsappUrl, "_blank");
-  
-        // Create a new Job instance with the form data
-        const newJob = new Job({
-          title: selectedService.title,
-          location,
-          phoneNumber: phone,
-          description,
-        });
+    const selectedService = useServicesStore.getState().selectedService; // Get the selected service from the store
+    
+    // Check if a service is selected
+    if (selectedService) {
+      const { location, phone, description } = formData; // Destructure formData
+    //   const phoneNumber = "+27637715945"; // Specify the desired phone number
+    //   const message = `I am interested in the service: ${selectedService.title}\nLocation: ${formData.location}\nPhone: ${formData.phone}\nDescription: <span class="math-inline">\{formData\.description\}\`;`
+    // const whatsappUrl = `https://api.whatsapp.com/send?phone={encodeURIComponent${(phoneNumber)}&text=${encodeURIComponent(message)}`;
+    
+    //   // Open the WhatsApp chat window in the current tab
+    //   window.open(whatsappUrl, _blank) ;
+    
+      // Create a new Job instance with the form data
+      const newJob = new Job({
+        title: selectedService.title,
+        location,
+        phoneNumber: phone,
+        description,
+      });
+    
+      // Send the new job data to the endpoint for creating jobs
+      console.log(newJob)
+      const createJobEndpoint = "/api/job/create";
+      const response = await fetch(createJobEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newJob), // Send the new job instance as JSON
+      });
+    
+      if (response.status === 201) {
+        // Job created successfully
         console.log("Job created successfully");
-       
-  
-        // Send the new job data to the endpoint for creating jobs
-        const createJobEndpoint = "/api/jobs/create";
-        const response = await fetch(createJobEndpoint, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newJob), // Send the new job instance as JSON
-        });
-  
-        if (response.status === 201) {
-        
-        } else {
-          throw new Error("Error creating job");
-        }
-  
-        // Your logic to send the message goes here
-        
-  
-        // Rest of your code for creating a job
       } else {
-        console.error("No service selected.");
+        // Error creating job
+        throw new Error("Error creating job");
       }
-    } catch (error) {
-      // Handle any errors that occur during the process
-      console.error("Error:", error);
     }
-  };
+    } catch (error) {
+    // Handle any errors that occur during the process
+    console.error("Error:", error);
+    }
+    };
   
 
   const handleChange = (e) => {
