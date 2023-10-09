@@ -49,17 +49,18 @@ export default function ServiceCard({
     e.preventDafault()
     try {
     const selectedService = useServicesStore.getState().selectedService; // Get the selected service from the store
-    
+
     // Check if a service is selected
     if (selectedService) {
       const { location, phone, description } = formData; // Destructure formData
-    //   const phoneNumber = "+27637715945"; // Specify the desired phone number
-    //   const message = `I am interested in the service: ${selectedService.title}\nLocation: ${formData.location}\nPhone: ${formData.phone}\nDescription: <span class="math-inline">\{formData\.description\}\`;`
-    // const whatsappUrl = `https://api.whatsapp.com/send?phone={encodeURIComponent${(phoneNumber)}&text=${encodeURIComponent(message)}`;
-    
-    //   // Open the WhatsApp chat window in the current tab
-    //   window.open(whatsappUrl, _blank) ;
-    
+      const phoneNumber = "+27637715945"; // Specify the desired phone number
+      const message = `I am interested in the service: ${selectedService.title}\nLocation: ${formData.location}\nPhone: ${formData.phone}\nDescription: <span class="math-inline">\{formData\.description\}\`;`;
+      const whatsappUrl = `https://api.whatsapp.com/send?phone={encodeURIComponent${phoneNumber}&text=${encodeURIComponent(
+        message
+      )}`;
+
+      window.open(whatsappUrl, _blank);
+
       // Create a new Job instance with the form data
       const newJob = new Job({
         title: selectedService.title,
@@ -67,9 +68,9 @@ export default function ServiceCard({
         phoneNumber: phone,
         description,
       });
-    
+
       // Send the new job data to the endpoint for creating jobs
-      console.log(newJob)
+      console.log(newJob);
       const createJobEndpoint = "/api/job/create";
       const response = await fetch(createJobEndpoint, {
         method: "POST",
@@ -78,7 +79,7 @@ export default function ServiceCard({
         },
         body: JSON.stringify(newJob), // Send the new job instance as JSON
       });
-    
+
       if (response.status === 201) {
         // Job created successfully
         console.log("Job created successfully");
